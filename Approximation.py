@@ -19,10 +19,6 @@ def north_west(supply, costs, demand):
     supply = supply[:]
     demand = demand[:]
     costs = [row[:] for row in costs]
-
-    if sum(supply) != sum(demand):
-        return "The problem is not balanced!"
-    
     north_west_allocation_matrix = [[0] * len(demand) for _ in range(len(supply))]
     north_west_total_cost = 0
 
@@ -50,10 +46,6 @@ def vogel(supply, costs, demand):
     supply = supply[:]
     demand = demand[:]
     costs = [row[:] for row in costs]
-
-    if sum(supply) != sum(demand):
-        return "The problem is not balanced!"
-    
     vogel_allocation_matrix = [[0] * len(demand) for i in range(len(supply))]
     vogel_total_cost = 0
 
@@ -110,10 +102,6 @@ def russell(supply, costs, demand):
     supply = supply[:]
     demand = demand[:]
     costs = [row[:] for row in costs]
-
-    if sum(supply) != sum(demand):
-        return "The problem is not balanced!"
-
     russell_allocation_matrix = [[0] * len(demand) for i in range(len(supply))]
     russell_total_cost = 0
 
@@ -151,26 +139,28 @@ def russell(supply, costs, demand):
 
 
 
-north_west_allocation_matrix, north_west_total_cost = north_west(s, c, d)
-vogel_allocation_matrix, vogel_total_cost = vogel(s, c, d)
-russell_allocation_matrix, russell_total_cost = russell(s, c, d)
+if sum(s) != sum(d):
+    print("The problem is not balanced!")
+else:
+    north_west_allocation_matrix, north_west_total_cost = north_west(s, c, d)
+    vogel_allocation_matrix, vogel_total_cost = vogel(s, c, d)
+    russell_allocation_matrix, russell_total_cost = russell(s, c, d)
+
+    print()
+    print_matrix(s, c, d)
 
 
+    print("\nFeasible solutions for North-West method:")
+    for row in north_west_allocation_matrix:
+        print(row)
+    print("Total cost for North-West method:", north_west_total_cost)
 
-print()
-print_matrix(s, c, d)
+    print("\nFeasible solutions for Vogel's approximation:")
+    for row in vogel_allocation_matrix:
+        print(row)
+    print("Total cost for Vogel's approximation:", vogel_total_cost)
 
-print("\nFeasible solutions for North-West method:")
-for row in north_west_allocation_matrix:
-    print(row)
-print("Total cost for North-West method:", north_west_total_cost)
-
-print("\nFeasible solutions for Vogel's approximation:")
-for row in vogel_allocation_matrix:
-    print(row)
-print("Total cost for Vogel's approximation:", vogel_total_cost)
-
-print("\nFeasible solutions for Russell's approximation:")
-for row in russell_allocation_matrix:
-    print(row)
-print("Total cost for Russell's approximation:", russell_total_cost)
+    print("\nFeasible solutions for Russell's approximation:")
+    for row in russell_allocation_matrix:
+        print(row)
+    print("Total cost for Russell's approximation:", russell_total_cost)
